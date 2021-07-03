@@ -1,14 +1,27 @@
+"""
+
+                                  _     _     
+                                  | |   | |    
+   __ _ _ __ _   _  __ _ _ __  ___| |__ | |__  
+  / _` | '__| | | |/ _` | '_ \/ __| '_ \| '_ \ 
+ | (_| | |  | |_| | (_| | | | \__ \ | | | |_) |
+  \__,_|_|   \__, |\__,_|_| |_|___/_| |_|_.__/ 
+              __/ |                            
+             |___/                             
+
+
+
+"""
+
 import pandas as pd
 import numpy as np
-import nltk
-from nltk.corpus import words
-
 
 # this sec is to make a dictionary of the words in the email
 
 vocabulary = {}
 data = pd.read_csv("data/emails.csv")
-set_words = set(map(str.strip, open('words.txt')))
+set_words = set(map(str.strip, open('words.txt'))) # words.txt ocntains all the words in the english dectionary (scraped from internet)
+# link for words.txt: https://github.com/aryanshb/english-words/blob/master/words.txt
 
 
 def build_vocabulary(curr_email):
@@ -33,7 +46,10 @@ if __name__ == "__main__":
 file = open("vocabulary.txt", "w")
 file.write(str(vocabulary))
 file.close()
+ 
+############################################################################
 
+# this section is to map each word to its frequency
 
 file = open("vocabulary.txt", "r")
 contents = file.read()
@@ -55,6 +71,9 @@ for i in range(data.shape[0]):
 np.save("data/X.npy", X)
 np.save("data/y.npy", y)
 
+############################################################################
+
+# this is the implementation of naive bayes algorithm
 
 class NaiveBayes:
     def __init__(self, X, y):
